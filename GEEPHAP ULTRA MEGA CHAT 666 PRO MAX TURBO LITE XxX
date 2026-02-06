@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>УЖАСНЫЙ МЕССЕНДЖЕР 3000</title>
+
+<style>
+body{
+    background: linear-gradient(45deg, red, lime, blue, yellow);
+    font-family: Comic Sans MS;
+    text-align:center;
+    animation: blink 0.5s infinite alternate;
+}
+
+@keyframes blink{
+    from{opacity:1;}
+    to{opacity:0.8;}
+}
+
+#chat{
+    height:300px;
+    overflow:auto;
+    border:5px dashed purple;
+    background:black;
+    color:white;
+    padding:5px;
+    margin:10px;
+}
+
+input{
+    width:60%;
+    font-size:20px;
+}
+
+button{
+    font-size:20px;
+    background:orange;
+}
+</style>
+</head>
+
+<body>
+
+<h1>💀 УЖАСНЫЙ МЕССЕНДЖЕР 💀</h1>
+
+<div id="chat"></div>
+
+<input type="text" id="message" placeholder="Пиши что-нибудь...">
+<button onclick="send()">ОТПРАВИТЬ!!!</button>
+<button onclick="toggleBackground()">ФОНОВЫЙ РЕЖИМ???</button>
+
+<script>
+
+let backgroundMode = false;
+let spamInterval = null;
+
+function send(){
+    let text = document.getElementById("message").value;
+    if(text === "") return;
+
+    let chat = document.getElementById("chat");
+    chat.innerHTML += "<p>👤 Ты: " + text + "</p>";
+
+    document.getElementById("message").value = "";
+
+    // ужасный автоответ
+    setTimeout(function(){
+        chat.innerHTML += "<p>🤖 Бот: Я тебя не понял 🤡</p>";
+        chat.scrollTop = chat.scrollHeight;
+    }, 1000);
+
+    chat.scrollTop = chat.scrollHeight;
+}
+
+// максимально странный фоновый режим
+function toggleBackground(){
+    backgroundMode = !backgroundMode;
+
+    if(backgroundMode){
+        alert("ФОНОВЫЙ РЕЖИМ АКТИВИРОВАН 🤯");
+
+        spamInterval = setInterval(function(){
+            console.log("Сообщение получено в фоне!!!");
+            document.title = "🔥 НОВОЕ СООБЩЕНИЕ!!!";
+        }, 2000);
+
+    } else {
+        alert("ФОНОВЫЙ РЕЖИМ ВЫКЛЮЧЕН 😴");
+
+        clearInterval(spamInterval);
+        document.title = "УЖАСНЫЙ МЕССЕНДЖЕР 3000";
+    }
+}
+
+// фейковая имитация фонового режима при сворачивании вкладки
+document.addEventListener("visibilitychange", function(){
+    if(document.hidden){
+        console.log("Приложение свернуто... но оно СЛЕДИТ 👀");
+    }
+});
+
+</script>
+
+</body>
+</html>
